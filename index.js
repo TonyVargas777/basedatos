@@ -1,6 +1,19 @@
-const { conexion } = require("./basedatos/conexion");
+const conexion = require("./basedatos/conexion");
 const express = require("express");
 const cors = require("cors");
+const cron = require('node-cron');
+const loadJSONToDB = require('./helpers/loadJSONToDB'); // Ruta al nuevo script
+
+// Configura una tarea cron (por ejemplo, cada 5 minutos)
+console.log('Tarea cron configurada para ejecutarse cada 5 minutos');
+cron.schedule('*/5 * * * *', async () => {
+  console.log('Ejecutando tarea cron en el servidor...');
+  try {
+    await loadJSONToDB();
+  } catch (error) {
+    console.error('Error al ejecutar la tarea programada:', error);
+  }
+});
 
 // Inicializar app
 console.log("App de node arrancada");
