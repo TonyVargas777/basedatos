@@ -28,7 +28,7 @@ async function actualizarBaseDeDatos() {
         // Convertir el _id de cada documento a ObjectId si es una cadena de texto
         const formattedData = data.map(item => ({
             ...item,
-            _id: ObjectId(item._id) // Convertir la cadena _id a ObjectId
+            _id: new ObjectId(item._id.$oid) // Convertir la cadena _id a ObjectId
         }));
 
         // Insertar los nuevos datos
